@@ -45,18 +45,18 @@ final class Exporter {
 	 */
 	public function columns(): array {
 		return array(
-			'id'            => __( 'ID', '404-to-301-logs-exporter' ),
-			'url'           => __( '404 Path', '404-to-301-logs-exporter' ),
-			'ref'           => __( 'Referrer', '404-to-301-logs-exporter' ),
-			'ip'            => __( 'IP Address', '404-to-301-logs-exporter' ),
-			'ua'            => __( 'User Agent', '404-to-301-logs-exporter' ),
-			'method'        => __( 'HTTP Method', '404-to-301-logs-exporter' ),
-			'hits'          => __( 'Hits', '404-to-301-logs-exporter' ),
-			'status'        => __( 'Status', '404-to-301-logs-exporter' ),
-			'status_label'  => __( 'Status Label', '404-to-301-logs-exporter' ),
-			'redirect_id'   => __( 'Linked Redirect ID', '404-to-301-logs-exporter' ),
-			'created_at'    => __( 'First Seen', '404-to-301-logs-exporter' ),
-			'updated_at'    => __( 'Last Hit', '404-to-301-logs-exporter' ),
+			'id'           => __( 'ID', '404-to-301-logs-exporter' ),
+			'url'          => __( '404 Path', '404-to-301-logs-exporter' ),
+			'ref'          => __( 'Referrer', '404-to-301-logs-exporter' ),
+			'ip'           => __( 'IP Address', '404-to-301-logs-exporter' ),
+			'ua'           => __( 'User Agent', '404-to-301-logs-exporter' ),
+			'method'       => __( 'HTTP Method', '404-to-301-logs-exporter' ),
+			'hits'         => __( 'Hits', '404-to-301-logs-exporter' ),
+			'status'       => __( 'Status', '404-to-301-logs-exporter' ),
+			'status_label' => __( 'Status Label', '404-to-301-logs-exporter' ),
+			'redirect_id'  => __( 'Linked Redirect ID', '404-to-301-logs-exporter' ),
+			'created_at'   => __( 'First Seen', '404-to-301-logs-exporter' ),
+			'updated_at'   => __( 'Last Hit', '404-to-301-logs-exporter' ),
 		);
 	}
 
@@ -81,6 +81,12 @@ final class Exporter {
 			return 0;
 		}
 
+		// `WP_Filesystem` is not appropriate for this method — we
+		// stream to `php://output` so the browser can save the file as
+		// it arrives. Buffering the entire export through a Filesystem
+		// abstraction would force every row into memory first, which
+		// defeats the point of a streaming CSV export.
+		// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		$handle = fopen( 'php://output', 'w' );
 		if ( false === $handle ) {
 			return 0;
@@ -146,6 +152,7 @@ final class Exporter {
 		}
 
 		fclose( $handle );
+		// phpcs:enable WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 
 		return $written;
 	}
