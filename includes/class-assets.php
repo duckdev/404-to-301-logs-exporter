@@ -33,8 +33,10 @@ final class Assets {
 	 */
 	const SCREENS = array(
 		// Parent plugin's Logs page. The bundle registers the toolbar
-		// filter that injects our Export-CSV button.
-		'toplevel_page_404-to-301-logs' => 'logs-exporter',
+		// filter that injects our Export-CSV button. The hook suffix
+		// follows the parent's menu structure — Logs lives under the
+		// Redirects top-level menu since 4.0.
+		'redirects_page_404-to-301-logs' => 'logs-exporter',
 	);
 
 	/**
