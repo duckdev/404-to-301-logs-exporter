@@ -62,6 +62,13 @@ const viewToParams = ( view ) => {
 const ExportButton = ( { ctx } ) => {
 	const view = ctx?.view
 
+	// Nothing to export when the current (filtered) view holds no rows,
+	// or while the table is still fetching — `total` is the row count the
+	// parent reports for the view the CSV would mirror. Guard `total`
+	// being absent (older parent) so the button stays usable there.
+	const isEmpty = ctx?.total === 0
+	const isLoading = !! ctx?.isLoading
+
 	const onClick = () => {
 		if ( ! config.endpoint || ! config.action ) {
 			return
@@ -85,7 +92,7 @@ const ExportButton = ( { ctx } ) => {
 				variant="secondary"
 				icon="download"
 				onClick={ onClick }
-				disabled={ ! config.endpoint }
+				disabled={ ! config.endpoint || isEmpty || isLoading }
 			>
 				{ __( 'Export CSV', '404-to-301-logs-exporter' ) }
 			</Button>
