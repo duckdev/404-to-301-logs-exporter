@@ -9,7 +9,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Export your 404 error logs from the 404 to 301 plugin as a downloadable CSV file in one click — filter-aware, streamed, and ready for any spreadsheet.
+One-click CSV export for the 404 to 301 plugin's error log — filter-aware, streamed, and ready for Excel, Sheets or Numbers.
 
 == Description ==
 
