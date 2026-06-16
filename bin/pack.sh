@@ -10,7 +10,7 @@
 #
 # Intentionally lighter than the parent's pack.sh: the addon is a
 # single PHP file with one JS bundle — no composer deps, no PHPCS,
-# no PHPUnit, no readme.txt stable-tag, no vendor/ to install.
+# no PHPUnit, no vendor/ to install.
 
 set -euo pipefail
 
@@ -23,6 +23,7 @@ DIST_DIR="$ROOT/releases"
 # Files/folders that land inside the ZIP. Anything not listed here is excluded.
 INCLUDES=(
 	"404-to-301-logs-exporter.php"
+	"readme.txt"
 	"includes"
 	"build"
 	"languages"
