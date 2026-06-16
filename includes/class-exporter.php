@@ -97,7 +97,11 @@ final class Exporter {
 		// UTF-8 BOM so Excel for Windows opens accented characters
 		// cleanly without a manual encoding pick.
 		fwrite( $handle, "\xEF\xBB\xBF" );
-		fputcsv( $handle, array_values( $columns ) );
+		// Pass an empty $escape explicitly: PHP 8.4 deprecates the
+		// implicit default, and the legacy backslash escaping isn't
+		// part of RFC 4180 — spreadsheets expect the standard
+		// "double the quote" behaviour, which is what '' selects.
+		fputcsv( $handle, array_values( $columns ), ',', '"', '' );
 
 		$logs    = \DuckDev\FourNotFour\Models\Logs::instance();
 		$page    = 1;
@@ -121,7 +125,7 @@ final class Exporter {
 
 			foreach ( $items as $row ) {
 				$record = $this->row( $row, array_keys( $columns ) );
-				fputcsv( $handle, $record );
+				fputcsv( $handle, $record, ',', '"', '' );
 				++$written;
 			}
 
