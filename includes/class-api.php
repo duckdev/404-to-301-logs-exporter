@@ -103,13 +103,9 @@ final class Api {
 			ob_end_clean();
 		}
 
-		// Large log tables can take a while — opt out of the request
-		// time limit and keep streaming even if the user closes the
-		// tab (otherwise the partial CSV they already received gets
-		// truncated when the script is killed).
-		if ( function_exists( 'set_time_limit' ) ) {
-			@set_time_limit( 0 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-		}
+		// Keep streaming even if the user closes the tab, so the partial
+		// CSV they already received isn't truncated when the script
+		// would otherwise be killed.
 		ignore_user_abort( true );
 
 		nocache_headers();
