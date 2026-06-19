@@ -41,6 +41,7 @@ Browse the full add-ons catalogue at [https://duckdev.com/addons/404-to-301/](ht
 * **Redirects Importer** — Bulk import custom redirects from CSV or other redirect plugins.
 * **Logs Cleaner** — Auto-prune the 404 log table by age, row count or schedule.
 * **Email Reports** — Periodic email digests of your 404 activity with an attached CSV.
+* **Telegram Alerts** — Real-time Telegram notifications for 404 errors and redirects.
 
 == Source code & contributions ==
 
